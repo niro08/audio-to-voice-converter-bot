@@ -1,0 +1,27 @@
+{
+  "name": "audio-to-voice-converter-bot",
+  "version": "1.0.0",
+  "description": "This is a Telegram bot built with TypeScript and the grammy library that converts audio files into voice messages.",
+  "main": "bot.ts",
+  "scripts": {
+    "start": "ts-node ./bot.ts",
+    "dev": "ts-node-dev ./bot.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Egor Becker & ChatGPT",
+  "license": "MIT",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@types/ffmpeg-static": "^3.0.1",
+    "dotenv": "^16.1.4",
+    "ffmpeg-static": "^5.1.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "grammy": "^1.16.1"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.21",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
+  }
+}
