@@ -41,6 +41,8 @@ bot.on('message', async (ctx) => {
                 // Convert the audio file to a voice message
                 await new Promise<void>((resolve, reject) => {
                     ffmpeg(fileUrl)
+                        .audioCodec('libopus')
+                        .audioBitrate('128k')
                         .toFormat('oga')
                         .on('end', () => resolve())
                         .on('error', (error) => reject(error))
