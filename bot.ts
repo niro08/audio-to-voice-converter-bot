@@ -1,4 +1,4 @@
-import {Bot, InputFile} from "grammy";
+import {Bot, Context, InputFile} from "grammy";
 import dotenv from "dotenv";
 import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
@@ -15,19 +15,27 @@ if (!fs.existsSync(outputDir)) {
 // @ts-ignore
 const bot = new Bot(process.env.TOKEN);
 
+const reply = async (ctx: Context, message: string) => {
+    try {
+        await ctx.reply(message);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-bot.command('start', (ctx) => {
-    ctx.reply('Hi! I am a bot that converts audio files into voice messages. Just send me an audio file, you can also add a caption for it.');
+
+bot.command('start', async (ctx) => {
+    await reply(ctx, 'Hi! I am a bot that converts audio files into voice messages. Just send me an audio file, you can also add a caption for it.');
 });
 
 bot.on('message', async (ctx) => {
     if (!ctx.message.audio) {
-        ctx.reply('The message should contain an audio file.');
+        await reply(ctx, 'The message should contain an audio file.');
     } else {
         const audio = ctx.message.audio;
         const caption = ctx.message.caption || '';
 
-        ctx.reply('Received an audio file. Processing...');
+        await reply(ctx, 'Received an audio file. Processing...');
 
         try {
             // Get file information
@@ -66,7 +74,7 @@ bot.on('message', async (ctx) => {
             }
         } catch (error) {
             console.error('An error occurred during audio file conversion:', error);
-            ctx.reply('An error occurred during audio file conversion. Please try again.');
+            await reply(ctx, 'An error occurred during audio file conversion. Please try again.');
         }
     }
 });
